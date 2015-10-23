@@ -16,7 +16,7 @@ services:
 
     andres_montanez_user_agent_string.user_agent:
         class: %andres_montanez_user_agent_string.user_agent.class%
-        arguments: [@request_stack, @andres_montanez_user_agent_string.user_agent_loader, %andres_montanez_user_agent_string.source_file%, %andres_montanez_user_agent_string.parse_robots%]
+        arguments: [@request, @andres_montanez_user_agent_string.user_agent_loader, %andres_montanez_user_agent_string.source_file%, %andres_montanez_user_agent_string.parse_robots%]
 
     user_agent:
         alias: andres_montanez_user_agent_string.user_agent

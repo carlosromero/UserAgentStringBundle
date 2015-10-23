@@ -11,7 +11,7 @@
 namespace AndresMontanez\UserAgentStringBundle\Service;
 
 use AndresMontanez\UserAgentStringBundle\Entity\UserAgent;
-use Symfony\Component\HttpFoundation\RequestStack;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * UserAgent Service
@@ -39,21 +39,21 @@ class UserAgentService
     protected $currentUserAgent;
 
     /**
-     * Request Stack for accessing the Master Request
-     * @var \Symfony\Component\HttpFoundation\RequestStack
+     * Master Request
+     * @var \Symfony\Component\HttpFoundation\Request
      */
-    protected $requestStack;
+    protected $request;
 
     /**
      * Constructor
-     * @param RequestStack           $requestStack
+     * @param Request                $request
      * @param UserAgentLoaderService $loader
      * @param string                 $sourceFile
      * @param boolean                $parseRobots
      */
-    public function __construct(RequestStack $requestStack, UserAgentLoaderService $loader, $sourceFile, $parseRobots = false)
+    public function __construct(Request $request, UserAgentLoaderService $loader, $sourceFile, $parseRobots = false)
     {
-        $this->requestStack = $requestStack;
+        $this->request = $request;
         $this->parseRobots = $parseRobots;
         $this->data = $loader->load($sourceFile, $this->parseRobots);
     }
@@ -192,7 +192,7 @@ class UserAgentService
     public function getCurrent()
     {
         if ($this->currentUserAgent === null) {
-            $this->currentUserAgent = $this->parse($this->requestStack->getMasterRequest()->headers->get('User-Agent'));
+            $this->currentUserAgent = $this->parse($this->request->headers->get('User-Agent'));
         }
 
         return $this->currentUserAgent;
