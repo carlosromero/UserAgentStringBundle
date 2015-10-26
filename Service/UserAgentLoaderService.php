@@ -10,7 +10,6 @@
 
 namespace AndresMontanez\UserAgentStringBundle\Service;
 
-use Psr\Log\LoggerInterface;
 use DateTime;
 
 /**
@@ -46,7 +45,7 @@ class UserAgentLoaderService
      * @param boolean         $debug
      * @param LoggerInterface $logger
      */
-    public function __construct($cacheDir, $debug, LoggerInterface $logger)
+    public function __construct($cacheDir, $debug, $logger)
     {
         $this->cacheDir = $cacheDir;
         $this->debug = $debug;

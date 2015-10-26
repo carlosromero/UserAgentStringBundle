@@ -52,6 +52,8 @@ class UserAgentService
      */
     public function __construct(Container $container, UserAgentLoaderService $loader, $sourceFile, $parseRobots = false)
     {
+        $container->enterScope('request');
+        $container->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
         $this->request = $container->get('request');
         $this->parseRobots = $parseRobots;
         $this->data = $loader->load($sourceFile, $this->parseRobots);
