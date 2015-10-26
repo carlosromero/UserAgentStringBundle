@@ -11,8 +11,7 @@
 namespace AndresMontanez\UserAgentStringBundle\Service;
 
 use AndresMontanez\UserAgentStringBundle\Entity\UserAgent;
-use Symfony\Component\HttpFoundation\Request;
-
+use Symfony\Component\DependencyInjection\Container; 
 /**
  * UserAgent Service
  *
@@ -51,9 +50,9 @@ class UserAgentService
      * @param string                 $sourceFile
      * @param boolean                $parseRobots
      */
-    public function __construct(Request $request, UserAgentLoaderService $loader, $sourceFile, $parseRobots = false)
+    public function __construct(Container $container, UserAgentLoaderService $loader, $sourceFile, $parseRobots = false)
     {
-        $this->request = $request;
+        $this->request = $container->get('request');
         $this->parseRobots = $parseRobots;
         $this->data = $loader->load($sourceFile, $this->parseRobots);
     }
