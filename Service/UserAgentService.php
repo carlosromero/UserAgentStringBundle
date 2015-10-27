@@ -38,23 +38,21 @@ class UserAgentService
     protected $currentUserAgent;
 
     /**
-     * Master Request
-     * @var \Symfony\Component\HttpFoundation\Request
+     *
+     * @var \Symfony\Component\DependencyInjection\Container
      */
-    protected $request;
+    protected $container;
 
     /**
      * Constructor
-     * @param Request                $request
+     * @param Container              $container
      * @param UserAgentLoaderService $loader
      * @param string                 $sourceFile
      * @param boolean                $parseRobots
      */
     public function __construct(Container $container, UserAgentLoaderService $loader, $sourceFile, $parseRobots = false)
     {
-        $container->enterScope('request');
-        $container->set('request', new \Symfony\Component\HttpFoundation\Request(), 'request');
-        $this->request = $container->get('request');
+        $this->container = $container;
         $this->parseRobots = $parseRobots;
         $this->data = $loader->load($sourceFile, $this->parseRobots);
     }
@@ -175,7 +173,7 @@ class UserAgentService
                 $deviceId = 2;
             }
         }
-
+        
         // Fill Device infomration
         $deviceData = $this->data['devices'][$deviceId];
         $userAgent->setDeviceId($deviceId);
@@ -193,7 +191,7 @@ class UserAgentService
     public function getCurrent()
     {
         if ($this->currentUserAgent === null) {
-            $this->currentUserAgent = $this->parse($this->request->headers->get('User-Agent'));
+            $this->currentUserAgent = $this->parse($this->container->get('request')->headers->get('user-agent'));
         }
 
         return $this->currentUserAgent;

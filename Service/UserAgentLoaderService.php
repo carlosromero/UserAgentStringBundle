@@ -11,7 +11,7 @@
 namespace AndresMontanez\UserAgentStringBundle\Service;
 
 use DateTime;
-
+use Symfony\Bridge\Monolog\Logger;
 /**
  * Service for Loading the UserAgent Definitions
  *
@@ -34,7 +34,7 @@ class UserAgentLoaderService
 
     /**
      * The Logger
-     * @var \Psr\Log\LoggerInterface
+     * @var \Symfony\Bridge\Monolog\Logger
      */
     protected $logger;
 
@@ -45,7 +45,7 @@ class UserAgentLoaderService
      * @param boolean         $debug
      * @param LoggerInterface $logger
      */
-    public function __construct($cacheDir, $debug, $logger)
+    public function __construct($cacheDir, $debug,Logger $logger)
     {
         $this->cacheDir = $cacheDir;
         $this->debug = $debug;
@@ -89,7 +89,7 @@ class UserAgentLoaderService
                 $versionDate = new DateTime(substr($versionDate, 0, 4) . '-' . substr($versionDate, 4, 2) . '-' . substr($versionDate, 6, 2));
                 $diff = $versionDate->diff(new \DateTime, true);
                 if ($diff->days > 60) {
-                    $this->logger->warning('Your UserAgent String File is more than two months old! Please consider to upgrade it by downloading it from: http://udger.com/resources. If you are using the file from the bundle, then update the bundle.');
+                    $this->logger->alert('Your UserAgent String File is more than two months old! Please consider to upgrade it by downloading it from: http://udger.com/resources. If you are using the file from the bundle, then update the bundle.');
                 }
             }
 
