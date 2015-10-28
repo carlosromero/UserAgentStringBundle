@@ -1,5 +1,5 @@
 {
-    "name": "andres-montanez/useragentstring-bundle",
+    "name": "carlos-romero/useragentstring-bundle",
     "type": "symfony-bundle",
     "description": "Symfony2 bundle for integrating UserAgentString",
     "keywords": ["user agent", "detection"],
@@ -12,6 +12,9 @@
             "homepage": "http://andresmontanez.com"
         }
     ],
+    "replace": {
+         "andres-montanez/useragentstring-bundle" : "*"
+    }
     "require": {
         "php":                       ">=5.3.3",
         "symfony/framework-bundle":  "<=2.4.0"
