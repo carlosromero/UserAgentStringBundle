@@ -1,5 +1,5 @@
 {
-    "name": "carlos-romero/useragentstring-bundle",
+    "name": "carlosromero/useragentstring-bundle",
     "type": "symfony-bundle",
     "description": "Symfony2 bundle for integrating UserAgentString",
     "keywords": ["user agent", "detection"],
